@@ -1,0 +1,28 @@
+/* UniversalTable.css */
+table {
+  width: 100%; /* Таблица занимает всю ширину */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; /* Выравнивание текста по центру */
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.status {
+  text-align: center;
+}
+
+.status.active {
+  color: green;
+}
+
+.status.inactive {
+  color: red;
+}

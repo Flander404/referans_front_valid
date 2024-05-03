@@ -1,0 +1,10 @@
+.input_{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: #2C84EC;
+    border-width: 1.5px;
+    width: 80%;
+
+    outline: none;
+}
