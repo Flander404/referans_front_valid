@@ -1,6 +1,7 @@
+@import './../../assets/font/stylesheet.css';
 .footer{
     margin-top: 116px;
-    font-family: 'Stolzl Reg';
+    font-family: 'Stolzl';
     width: 100%;
     display: flex;
     justify-content: center;

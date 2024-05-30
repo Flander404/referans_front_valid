@@ -1,10 +1,12 @@
 const SET_USER = "SET_USER"; //создаем событие
 const LOGOUT = "LOGOUT";
+const SET_LOADING = "SET_LOADING";
 //состояние пользователя авторизован/нет
 //изначально не авторизован
 const defaultState = {
   currentUser: {},
   isAuth: false,
+  isLoading: true
 };
 
 export default function userReduser(state = defaultState, action) {
@@ -23,6 +25,11 @@ export default function userReduser(state = defaultState, action) {
         currentUser: {},
         isAuth: false,
       };
+    case SET_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      }
     default:
       return state;
   }
@@ -32,3 +39,5 @@ export default function userReduser(state = defaultState, action) {
 export const setUser = (user) => ({ type: SET_USER, payload: user });
 
 export const logout = () => ({ type: LOGOUT });
+
+export const setLoading = (isLoading) => ({ type: SET_LOADING, payload: isLoading });

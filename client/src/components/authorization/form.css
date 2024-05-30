@@ -1,4 +1,7 @@
+@import './../../assets/font/stylesheet.css';
+
 .form{
+    font-family: 'Stolzl';
     height: 100vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.4);

@@ -16,13 +16,13 @@ function PartnerAcc() {
   console.log(info, "info");
   return (
     <body>
-      <div class="container container_acc">
-        <div class="title">Личный кабинет</div>
-        <div class="main_con">
-          <div class="column_info">
-            <div class="container_info">
-              <div class="title_contact_info">Контактная информация</div>
-              <div class="information_block">
+      <div className="container container_acc">
+        <div className="title">Личный кабинет</div>
+        <div className="main_con">
+          <div className="column_info">
+            <div className="container_info">
+              <div className="title_contact_info">Контактная информация</div>
+              <div className="information_block">
                 <div className="row">
                   <div className="row_item">ID</div>
                   <div className="row_item">{findValueByKey("id")}</div>
@@ -59,58 +59,16 @@ function PartnerAcc() {
                   <div className="row_item">WhatsApp</div>
                   <div className="row_item">{findValueByKey("WhatsApp")}</div>
                 </div>
-                {/* <div class="contact_info">
-                  <div class="f_column">
-                  
-                    <ul>
-                      <li>Фамилия</li>
-                      <li>Имя</li>
-                      <li>Отчество</li>
-                    </ul>
-
-                    <ul>
-                      <li>Дата рождения</li>
-                    </ul>
-
-                    <ul>
-                      <li>Тел.</li>
-                      <li>E-mail</li>
-                      <li>Telegram</li>
-                      <li>WhatsApp</li>
-                    </ul>
-                  </div>
-
-                  <div class="s_column">
-                    <ul>
-                      <li>{id_num}</li>
-                    </ul>
-
-                    <ul>
-                      <li>{sname}</li>
-                      <li>{fname}</li>
-                      <li>{tname}</li>
-                    </ul>
-                    <ul>
-                      <li>{date_of_birth}</li>
-                    </ul>
-                    <ul>
-                      <li>{tel}</li>
-                      <li>{email}</li>
-                      <li>{Telegram}</li>
-                      <li>{WhatsApp}</li>
-                    </ul>
-                  </div>
-                </div> */}
               </div>
 
               <div className="button mt20">Запросить изменение информации</div>
             </div>
           </div>
-          <div class="column">
-            <div class="column_info_2">
-              <div class="title_contact_info">Верификация</div>
-              <div class="description_bottom">
-                <p class="description_bottom_text">
+          <div className="column">
+            <div className="column_info_2">
+              <div className="title_contact_info">Верификация</div>
+              <div className="description_bottom">
+                <p className="description_bottom_text">
                   <br />
                   Для подтверждения личности Вам необходимо отправить следующие
                   <br /> документы и фото на почту nextcryptoinvest@gmail.com
@@ -118,18 +76,18 @@ function PartnerAcc() {
                   <br />
                   Телеграм-аккаунт @nextcryptoinvest_bot:
                 </p>
-                <p class="description_bottom_text">
+                <p className="description_bottom_text">
                   <br />
                   Серия и номер паспорта,
                   <br />
                   Ваше фото с паспортом, где четко видно лицо и данные в
                   паспорте
                   <br />
-                  <a href="#!" class="blue_word">
+                  <a href="#!" className="blue_word">
                     (пример).
                   </a>
                 </p>
-                <p class="description_bottom_text">
+                <p className="description_bottom_text">
                   <br />
                   Если данные, указанные при регистрации, не будут совпадать с
                   <br />
@@ -138,8 +96,8 @@ function PartnerAcc() {
                   целях безопасности. Благодарим за понимание.
                 </p>
               </div>
-              <div class="button">Я отправил(-а) документы, подать заявку</div>
-              <div class="description_bottom_partn">
+              <div className="button">Я отправил(-а) документы, подать заявку</div>
+              <div className="description_bottom_partn">
                 <p>
                   При возникновении вопросов, связанных с изменением личных
                   данных,

@@ -1,4 +1,7 @@
+@import './../../assets/font/stylesheet.css';
+
 .container{
+    font-family: 'Stolzl';
     width: 100%;
     justify-content: center;
     display: flex;

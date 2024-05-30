@@ -1,59 +1,56 @@
 import axios from "axios";
-import { setUser } from "../../reducers/userReducer";
-import { API_URL } from "../../config";
+import { setLoading, setUser } from "../../reducers/userReducer";
+import { API_URL } from "../../http";
+
+
 export const registration = async (
   tel,
   email,
   password,
   secretWord,
-  referalCode
+  firstName,
+  lastName,
+  surName,
+  referal,
 ) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/auth/registration`, {
+    const { data } = await axios.post(`${API_URL}/api/auth/registration`, {
       tel,
       email,
       password,
       secretWord,
-      referalCode,
+      referal,
+      firstName,
+      lastName,
+      surName
     });
-    alert(response.data.message);
-  } catch (e) {
-    alert(e.response.data.message);
-  }
+    return data;
 };
 
-export const login = (tel, email, password) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.post(`${API_URL}/api/auth/login`, {
-        tel,
-        email,
-        password,
-      });
-      console.log(response.data.token);
-      dispatch(setUser(response.data.user));
-      localStorage.setItem("token", response.data.token);
-      //получаем нашего юзера и переменную, которая показывает, авторизован ли пользовател
-      //локальное хранилище для токена, чтобы при обновлении страницы не слетала авторизация
-    } catch (e) {
-      alert(e.response.data.message);
-    }
-  };
+export const login = async (tel, email, password) => {
+  const { data } = await axios.post(`${API_URL}/api/auth/login`, {
+    tel,
+    email,
+    password,
+  });
+  return data;
 };
 
 export const auth = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${API_URL}/api/auth/auth`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
+      localStorage.setItem("accessToken", response.data.token);
       dispatch(setUser(response.data));
-      localStorage.setItem("token", response.data.token);
+      
       //получаем нашего юзера и переменную, которая показывает, авторизован ли пользователь
 
       //локальное хранилище для токена, чтобы при обновлении страницы не слетала авторизация
     } catch (e) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("accessToken");
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 };
@@ -62,13 +59,13 @@ export const getUserInfo = () => {
  return async (dispatch) => {
     try {
       const response = await axios.get(`${API_URL}/api/auth/me`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
       dispatch(setUser(response.data.user));
     } catch (e) {
       console.error(e);
       // Обработка ошибок, например, удаление токена из локального хранилища, если запрос не удался
-      localStorage.removeItem("token");
+      localStorage.removeItem("accessToken");
     }
   };
 };

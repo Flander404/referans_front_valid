@@ -1,5 +1,6 @@
+@import './../../assets/font/stylesheet.css';
 .header_nav {
-  font-family: "Stolzl Reg";
+  font-family: "Stolzl";
   display: flex;
   width: 100%;
   align-items: center;
@@ -13,7 +14,8 @@
   align-items: center;
   justify-content: left;
 }
-.nav_cont {
+.nav_bar .nav_cont {
+  font-family: "Stolzl";
   width: 100%;
   text-align: center;
   justify-content: center;

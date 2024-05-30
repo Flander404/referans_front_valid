@@ -12,42 +12,149 @@ import FormReg from "./components/authorization/FormReg";
 import FormLog from "./components/authorization/FormLog";
 import { useSelector, useDispatch } from "react-redux";
 import { auth } from "./components/action/user";
+import Users from "./components/admin/users/Users"
+import Orders from "./components/admin/orders/Orders";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import AdminNavbar from "./components/navbar/AdminNavbar";
+import WithdrawRequests from "./components/admin/WithdrawRequests/WithdrawRequests";
+import Refferals from "./pages/Refferals/Refferals";
+import "./index.css";
+import Profile from "./components/Profile/Profile";
+import axios from "axios";
+import AdminProfile from "./components/admin/AdminProfile/AdminProfile";
 
 function App() {
-  const isAuth = useSelector((state) => state.user.isAuth);
-  //Записываем в переменную значение переменной, которая отвечает за авторизацию(тру/фолс)
-
+  const isLoading = useSelector((state) => state.user.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(auth());
   }, []);
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <BrowserRouter>
-      <Header></Header>
+      <Header />
 
-      {/* маршрут с роутами отрабатывает только при неавторизованном пользователе */}
-      {!isAuth && (
-        <div>
-          <Home />
-          <Routes>
-            <Route path="registration" element={<FormReg />}></Route>
-            <Route path="login" element={<FormLog />}></Route>
-          </Routes>
-        </div>
-      )}
-      {isAuth && (
-        <div>
-          <NavBar></NavBar>
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={(
+              <Home />
+            )}
+          />
+          <Route
+            path="/registration"
+            element={(
+              <>
+                <Home />
+                <FormReg />
+              </>
+            )}
+          />
+          <Route
+            path="/login"
+            element={(
+              <>
+                <Home />
+                <FormLog />
+              </>
+            )}
+          />
+          <Route
+            path="/loginadmin"
+            element={(
+              <>
+                <Home />
+                <FormLog />
+              </>
+            )}
+          />
+        </Routes>
+      </div>
 
-          <Routes path="acc">
-            <Route path="acc" element={<PartnerAcc />}></Route>
-            <Route path="history" element={<History />}></Route>
-            <Route path="status" element={<Status />}></Route>
-          </Routes>
-        </div>
-      )}
+
+
+      <Routes >
+        <Route
+          path="/users"
+          element={
+            <PrivateRoute isAdminRoute={true}>
+              <AdminNavbar />
+              <Users />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/withdraw-requests"
+          element={
+            <PrivateRoute isAdminRoute={true}>
+              <AdminNavbar />
+              <WithdrawRequests />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile/:id"
+          element={
+            <PrivateRoute isAdminRoute={true}>
+              <NavBar />
+              <AdminProfile />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/acc"
+          element={
+            <PrivateRoute>
+              <NavBar />
+              <Orders />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <NavBar />
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/refferals"
+          element={
+            <PrivateRoute>
+              <NavBar />
+              <Refferals />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <PrivateRoute >
+              <NavBar />
+              <History />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/status"
+          element={
+            <PrivateRoute>
+              <NavBar />
+              <Status />
+            </PrivateRoute>}
+        />
+      </Routes>
 
       <Footer></Footer>
     </BrowserRouter>

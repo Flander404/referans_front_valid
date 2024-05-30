@@ -1,4 +1,6 @@
+@import './../../../assets/font/stylesheet.css';
 .main_con {
+  font-family: 'Stolzl Reg';
   display: flex;
   justify-content: space-between;
   width: 100%;

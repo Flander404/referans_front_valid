@@ -1,5 +1,5 @@
 import './../footer/footer.css'
-
+import { NavLink } from "react-router-dom";
 //шапка
 const Footer= ()=>{
     
@@ -19,7 +19,9 @@ const Footer= ()=>{
                     <li>Оферта</li>
                     <li>Полезные материалы</li>
                     <li>2024 © nextcryptoinvest.com</li>
-                    <li>Вход для администратора</li>
+                    <NavLink to='/loginadmin'>
+                        <li>Вход для администратора</li>
+                    </NavLink>
                     
 
                 </ul> 

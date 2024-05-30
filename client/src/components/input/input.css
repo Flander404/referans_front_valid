@@ -1,4 +1,6 @@
+@import './../../assets/font/stylesheet.css';
 .input_{
+    font-family: 'Stolzl';
     border-top: none;
     border-left: none;
     border-right: none;

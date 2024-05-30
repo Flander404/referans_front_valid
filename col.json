@@ -1,0 +1,36 @@
+[
+    {
+      "ID": 1,
+      "summa": "1000 USDT",
+      "date": ["2024-05-05", "2024-06-05"],
+      "procent": ["1", "5%"],
+      "income": ["50 USDT", "60 USDT"],
+      "Status": {
+        "status": "active",
+        "text": "Активно"
+      }
+    },
+    {
+      "ID": 2,
+      "summa": "2000 USDT",
+      "date": ["2024-06-10", "2024-07-10"],
+      "procent": ["1.5", "6%"],
+      "income": ["60 USDT", "90 USDT"],
+      "Status": {
+        "status": "inactive",
+        "text": "Неактивно"
+      }
+    },
+    {
+      "ID": 3,
+      "summa": "3000 USDT",
+      "date": ["2024-07-15", "2024-08-15"],
+      "procent": ["2", "7%"],
+      "income": ["70 USDT", "120 USDT"],
+      "Status": {
+        "status": "active",
+        "text": "Активно"
+      }
+    }
+  ]
+  

@@ -2,103 +2,144 @@ import './form.css'
 import closeBut from './../../assets/images/close.png'
 import React from 'react';
 import Input from '../input/Input';
-import { useState } from "react";
-import {  NavLink } from 'react-router-dom';
-import { registration } from '../action/user';
+import {useState} from "react";
+import {Link, NavLink, useLocation, useNavigate} from 'react-router-dom';
+import {registration} from '../action/user';
+import toast from "react-hot-toast";
+import {AxiosError} from "axios";
 
+function useQuery() {
+    const {search} = useLocation();
 
-const FormReg=()=>{
-    
-    
-    
-    const[fName,setfName]=useState('')
-    const[sName,setsName]=useState('')
-    const[tName,settName]=useState('')
-    const[tel,setTel]=useState('')
-    const[email,setEmail]=useState('')
-    const[password,setPassword]=useState('')
-    const[secretWord,setSecret_word]=useState('')
-    const[referalCode,setRef_code]=useState('')
-    return(
-        
-        
-        <div className="form" >
-            <div className= "form_content active" >
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
+const FormReg = () => {
+    const navigate = useNavigate();
+    const [fName, setfName] = useState('')
+    const [sName, setsName] = useState('')
+    const [tName, settName] = useState('')
+    const [tel, setTel] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [secretWord, setSecret_word] = useState('')
+    const query = useQuery().get("ref");
+
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const data = await registration(tel, email, password, secretWord, fName, sName, tName, query);
+            navigate("/login");
+            toast.success("Registration successful");
+        } catch (e) {
+            if (e instanceof AxiosError) {
+                if (e.response?.data?.errors?.errors) {
+                    e.response?.data?.errors?.errors?.forEach((error) => {
+                        toast.error(`${error?.path}: ${error?.msg}`);
+                    })
+                } else {
+                    toast.error(e.response?.data?.message);
+                }
+            } else {
+                toast.error(e.message);
+            }
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return (
+
+        <div className="form">
+            <div className="form_content active">
                 <div className="form_container">
-                
-                    <NavLink to='/'>
-                        <div className='close_button' >
-                            <img src={closeBut} alt="text" />
+                    <form onSubmit={handleSubmit} method="POST" action="/">
+                        <NavLink to='/'>
+                            <div className='close_button'>
+                                <img src={closeBut} alt="text"/>
+                            </div>
+                        </NavLink>
+
+                        <p className='title_form'>Регистрация</p>
+                        <p className='title_form_descr'>Данные должны соответствовать реальным данным, указанным в
+                            паспорте.
+                            После введения данных, обязательно проверьте их правильность. Редактирование персональных
+                            данных
+                            возможно только через менеджера. Ручное редактирование невозможно.</p>
+                        <div className="content_form">
+                            <div className='title_input'>
+
+                                <ul>
+                                    <li>Имя</li>
+                                    <Input value={fName} setValue={setfName} type='fName'/>
+
+                                </ul>
+                                <ul>
+                                    <li>Фамилия</li>
+                                    <Input value={sName} setValue={setsName} type='sName'/>
+
+                                </ul>
+                                <ul>
+                                    <li>Отчество</li>
+                                    <Input value={tName} setValue={settName} type='tName'/>
+
+                                </ul>
+
+
+                                <ul>
+                                    <li>Телефон</li>
+                                    <Input value={tel} setValue={setTel} type='tel'/>
+
+                                </ul>
+
+                                <ul>
+                                    <li>E-mail</li>
+                                    <Input value={email} setValue={setEmail} type='email'/>
+                                </ul>
+
+                                <ul>
+                                    <li>Пароль</li>
+                                    <Input value={password} setValue={setPassword} type='password'/>
+                                </ul>
+                                <ul>
+                                    <li>Секретное слово</li>
+                                    <Input value={secretWord} setValue={setSecret_word} type='secretWord'/>
+
+                                </ul>
+                                {/*<ul>*/}
+                                {/*    <li>Рефераль<br/>ный код</li>*/}
+                                {/*    <Input value={referalCode} setValue={setRef_code} type='referalCode'/>*/}
+
+                                {/*</ul>*/}
+
+                            </div>
+
                         </div>
-                    </NavLink>
-                
-                    <p className='title_form'>Регистрация</p>
-                    <p className='title_form_descr'>Данные должны соответствовать реальным данным, указанным в паспорте. После введения данных, обязательно проверьте их правильность. Редактирование персональных данных возможно только через менеджера. Ручное редактирование невозможно.</p>
-                    <div className="content_form">
-                        <div className='title_input' >
 
-                            <ul>
-                                <li>Имя</li>
-                               <Input value={fName} setValue={setfName} type='fName'/>
-                                
-                            </ul>
-                            <ul>
-                                <li>Фамилия</li>
-                               <Input value={sName} setValue={setsName} type='sName'/>
-                                
-                            </ul>
-                            <ul>
-                                <li>Отчество</li>
-                               <Input value={tName} setValue={settName} type='tName'/>
-                                
-                            </ul>
-
-
-                            <ul>
-                                <li>Телефон</li>
-                               <Input value={tel} setValue={setTel} type='tel'/>
-                                
-                            </ul>
-        
-                            <ul>
-                                <li>E-mail</li>
-                                <Input value={email} setValue={setEmail} type='email'/>
-                            </ul>
-        
-                            <ul>
-                                <li>Пароль</li>
-                                <Input value={password} setValue={setPassword} type='password'/>
-                            </ul>
-                            <ul>
-                                <li>Секретное слово</li>
-                               <Input value={secretWord} setValue={setSecret_word} type='secretWord'/>
-                                
-                            </ul>
-                            <ul>
-                                <li>Рефераль<br/>ный код</li>
-                               <Input value={referalCode} setValue={setRef_code} type='referalCode'/>
-                                
-                            </ul>
-                            
-                        </div>
-                    
-                    </div>
-                    
-                    <div className="loginButton_form" onClick={()=>registration(tel,email,password,secretWord,referalCode)} >
-                        <p>Зарегистрироваться</p>
-                    </div>
-                    
+                        <button
+                            type="submit"
+                            className="loginButton_form"
+                            disabled={loading}
+                        >
+                            <p>Зарегистрироваться</p>
+                        </button>
+                    </form>
                     <div className='descr_form'>
-                        <p>Нажимая на кнопку 'Зарегистрироваться', Вы даете свое согласие на обработку персональных данных в соответствии с <a href='#!'>Политикой в отношении обработки персональных данных</a></p>
+                        <p>Нажимая на кнопку 'Зарегистрироваться', Вы даете свое согласие на обработку персональных
+                            данных в соответствии с <a href='#!'>Политикой в отношении обработки персональных данных</a>
+                        </p>
                     </div>
-                
+
                     <div className='descr_form'>
-                        <p>Уже зарегистрированы?<a href='#!'>  Войти</a></p>
+                        <p>Уже зарегистрированы?<Link to='/login'> Войти</Link></p>
                     </div>
 
                 </div>
             </div>
-        </div>  
+        </div>
     )
 }
 export default FormReg;
